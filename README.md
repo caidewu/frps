@@ -1,7 +1,5 @@
 # frp内网穿透服务端自动运行脚本
 
-> 该项目fork [clangcn/onekey-install-shell](https://github.com/clangcn/onekey-install-shell)，由于onekey-install-shell这个项目名字语意不明，所以这里新建了一个项目
-
 > 项目基于[fatedier/frp](https://github.com/fatedier/frp)
 
 
@@ -9,38 +7,39 @@
 
 > 该项目是运行在外网服务器上，以下的所有操作确保是在外网服务器中进行
 
-### 下载脚本
+### 在云服务器或具有独立IP的外网服务器上clone本项目
 
 ```
-wget --no-check-certificate https://raw.githubusercontent.com/caidewu/frps/master/install.sh -O ./install.sh
+git clone https://github.com/caidewu/frpc.git
 ```
 
-### 安装
+### 配置
+
+> 根据自己情况去修改以下几个配置项
 
 ```
-# 安装过程会有一系列去要确认的配置信息，没有特殊要求用default的就好了
-./install.sh install
+[common]
+# frp通信端口
+bind_port = 7000
+
+# 和bind_port保持一致就好
+kcp_bind_port = 7000
+
+# frps控制台端口
+dashboard_port = 7500
+
+# 控制台登陆名和密码
+dashboard_user = admin
+dashboard_pwd = 123456
+
+# 与客户端通信的token，随便一个字符串，和frpc中配置的一样就行
+privilege_token = xxxxxxxxxxx
 ```
 
-安装成功会生成类似如下的配置信息， 并且启动服务
+### 启动frps
 
 ```
-============== Check your input ==============
-You Server IP      : 100.100.100.100
-Bind port          : 7000
-kcp support        : true
-vhost http port    : 10080
-vhost https port   : 10443
-Dashboard port     : 7500
-Dashboard user     : admin
-Dashboard password : xxxxxx
-token              : xxxxxxxx
-tcp_mux            : true
-Max Pool count     : 50
-Log level          : info
-Log max days       : 3
-Log file           : enable
-==============================================
+./startup.sh
 ```
 
 ### 测试服务（以上面配置信息为例）
@@ -49,11 +48,7 @@ Log file           : enable
 
 ![frps管理后台](/example1.png)
 
-### 其他常用命令
 
-```
-frps {start|stop|restart|status|config|version}
-```
 
 ## 安装客户端程序
 
