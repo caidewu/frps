@@ -18,6 +18,9 @@ wget --no-check-certificate https://raw.githubusercontent.com/caidewu/frps/maste
 ### 安装
 
 ```
+# 获得文件执行权限
+chmod +x install.sh
+
 # 安装过程会有一系列去要确认的配置信息，没有特殊要求用default的就好了
 ./install.sh install
 ```
